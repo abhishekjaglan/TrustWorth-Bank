@@ -23,6 +23,7 @@ import { authFormSchema } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions'
+import PlaidLink from './PlaidLink'
 
 const AuthForm = ({type} : {type: string}) => {
     const router = useRouter();
@@ -45,8 +46,21 @@ const AuthForm = ({type} : {type: string}) => {
         
         try {          
 
+            const userData = {
+                firstName: data.firstName!,
+                lastName: data.lastName!,
+                address: data.address!,
+                city: data.city!,
+                state: data.state!,
+                pincode: data.pincode!,
+                dob: data.dob!,
+                aadhar: data.aadhar!,
+                email: data.email,
+                password: data.password
+              }
+
             if(type === 'signup'){
-                const newUser = await signUp(data);
+                const newUser = await signUp(userData);
 
                 setuser(newUser);
             }
@@ -99,9 +113,9 @@ const AuthForm = ({type} : {type: string}) => {
         </header>
         {user ? (
             <div className="flex flex-col gap-4">
-                {/* Plaid Link */}
+                <PlaidLink user={user} variant='primary' />
             </div>
-        )   :   (
+        )   :   ( 
             <>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -116,11 +130,11 @@ const AuthForm = ({type} : {type: string}) => {
                                 <CustomInput control={form.control} name='city' label='City' placeholder='Enter your city' />
                                 <div className='flex justify-between'>
                                     <CustomInput control={form.control} name='state' label='State' placeholder='ex. DL' />
-                                    <CustomInput control={form.control} name='pincode' label='Pin Code' placeholder='ex. 110010' />
+                                    <CustomInput control={form.control} name='pincode' label='Pin Code' placeholder='ex. 11001' />
                                 </div>
                                 <div className='flex justify-between'>
-                                    <CustomInput control={form.control} name='dob' label='Date of Birth' placeholder='DD-MM-YYYY' />
-                                    <CustomInput control={form.control} name='aadhar' label='Aadhar Number' placeholder='XXXX XXXX XXXX' />
+                                    <CustomInput control={form.control} name='dob' label='Date of Birth' placeholder='YYYY-MM-DD' />
+                                    <CustomInput control={form.control} name='aadhar' label='Aadhar Number' placeholder='XXXX' />
                                 </div>
                             </>
                         )}
@@ -159,9 +173,7 @@ const AuthForm = ({type} : {type: string}) => {
                     </Link>
                 </footer>
             </>
-        )
-
-        }
+        )} 
     </section>
   )
 }

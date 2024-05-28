@@ -203,19 +203,15 @@ export const authFormSchema = (type:string) => z.object({
   address: type === 'signin' ? z.string().optional() :  z.string().max(50),
   city: type === 'signin' ? z.string().optional() :  z.string().min(3),
   state: type === 'signin' ? z.string().optional() :  z.string().min(2).max(2),
-  pincode: type === 'signin' ? z.string().optional() :  z.string().min(6, {
+  pincode: type === 'signin' ? z.string().optional() :  z.string().min(5, {
     message: "Invalid pincode"
-  }).max(6, {
+  }).max(5, {
     message: "Invalid pincode"
   }),
   dob: type === 'signin' ? z.string().optional() :  z.string().min(3),
-  aadhar: type === 'signin' ? z.string().optional() :  z.string().min(12,{
+  aadhar: type === 'signin' ? z.string().optional() :  z.string().min(4,{
     message: "Invalid aadhar number"
-  }).max(12),
+  }).max(4),
   email: z.string().email().min(3),
-  password: z.string().min(8, {
-      message:"Password must contain atleast 8 characters"
-  }).max(50, {
-      message: "Password must not contain more than 50 characters"
-  }),
+  password: z.string().min(8),
 }); 
