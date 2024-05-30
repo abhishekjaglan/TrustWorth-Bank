@@ -202,12 +202,12 @@ export const authFormSchema = (type:string) => z.object({
   lastName: type === 'signin' ? z.string().optional() :  z.string().min(3),
   address: type === 'signin' ? z.string().optional() :  z.string().max(50),
   city: type === 'signin' ? z.string().optional() :  z.string().min(3),
-  state: type === 'signin' ? z.string().optional() :  z.string().min(2).max(2),
-  pincode: type === 'signin' ? z.string().optional() :  z.string().min(5, {
+  state: type === 'signin' ? z.string().optional() :  z.string().min(2).max(2).optional(),
+  pincode: type === 'signin' ? z.string().optional() :  z.string().min(6, {
     message: "Invalid pincode"
-  }).max(5, {
+  }).max(6, {
     message: "Invalid pincode"
-  }),
+  }).optional(),
   dob: type === 'signin' ? z.string().optional() :  z.string().min(3),
   aadhar: type === 'signin' ? z.string().optional() :  z.string().min(4,{
     message: "Invalid aadhar number"

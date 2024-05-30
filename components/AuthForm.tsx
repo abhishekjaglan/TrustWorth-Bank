@@ -134,7 +134,7 @@ const AuthForm = ({type} : {type: string}) => {
                                 </div>
                                 <div className='flex justify-between'>
                                     <CustomInput control={form.control} name='dob' label='Date of Birth' placeholder='YYYY-MM-DD' />
-                                    <CustomInput control={form.control} name='aadhar' label='Aadhar Number' placeholder='XXXX' />
+                                    <CustomInput control={form.control} name='aadhar' label='Aadhar Number (Last Four)' placeholder='XXXX' />
                                 </div>
                             </>
                         )}

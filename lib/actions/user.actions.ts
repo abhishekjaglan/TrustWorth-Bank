@@ -58,23 +58,14 @@ export const signUp = async (userData: SignUpParams) => {
         
         const { account, database } = await createAdminClient();
 
-        newUserAccount = await account.create(
-            ID.unique(), 
-            email, 
-            password,
-            `${firstName} ${lastName}`
-        );
-
-        if(!newUserAccount) throw new Error('Error creating user')
-
         const dwollaUser = {
             firstName: userData.firstName,
             lastName: userData.lastName,
             email: userData.email,
             address1: userData.address,
             city: userData.city,
-            state: userData.state,
-            postalCode: userData.pincode,
+            state: 'NY',
+            postalCode: '11001',
             dateOfBirth: userData.dob,
             ssn: userData.aadhar
         }
@@ -85,6 +76,16 @@ export const signUp = async (userData: SignUpParams) => {
         });
 
         if(!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer')
+
+        
+        newUserAccount = await account.create(
+            ID.unique(), 
+            email, 
+            password,
+            `${firstName} ${lastName}`
+        );
+
+        if(!newUserAccount) throw new Error('Error creating user')
         
         const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
 
